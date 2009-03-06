@@ -30,5 +30,12 @@ describe 'A text template' do
         result.should == 'A frog is not a spider.'
       end
     end
+    
+    it 'should allow stranger expressions' do
+      @template.expressions[/e(nter|xit)ed/] = :doorsign
+      @template.parse! '{foo} exited the {bar} and entered the world!'
+      result = @template.render :foo => 'Elvis', :bar => 'building', :doorsign => 'has left'
+      result.should == 'Elvis has left the building and has left the world!'
+    end
   end
 end
