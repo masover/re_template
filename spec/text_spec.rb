@@ -20,14 +20,23 @@ describe 'A text template' do
         @template.parse! 'A {foo} is not a {bar}.'
       end
       
-      it 'Should render properly' do
+      it 'should render properly' do
         result = @template.render :foo => 'plant', :bar => 'rhinocerous'
         result.should == 'A plant is not a rhinocerous.'
       end
       
-      it 'Should discard any fields not found' do
+      it 'should discard any fields not found' do
         result = @template.render :foo => 'frog', :bar => 'spider', :something_else => 'should not render'
         result.should == 'A frog is not a spider.'
+      end
+      
+      it 'should replace text verbatim, without further replacing it' do
+        result = @template.render :foo => '{foo}{bar}', :bar => '{bar}{foo}'
+        result.should == 'A {foo}{bar} is not a {bar}{foo}.'
+        result = @template.render :foo => '{foo}', :bar => '{bar}'
+        result.should == 'A {foo} is not a {bar}.'
+        result = @template.render :foo => '{bar}', :bar => '{foo}'
+        result.should == 'A {bar} is not a {foo}.'
       end
     end
     
