@@ -23,5 +23,17 @@ class ReTemplate
         end.flatten
       end
     end
+    
+    def render values
+      result = ''
+      nodes.each do |node|
+        if node.kind_of? String
+          result << node
+        else
+          result << values[expressions[node]]
+        end
+      end
+      result
+    end
   end
 end
