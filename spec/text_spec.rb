@@ -38,4 +38,11 @@ describe 'A text template' do
       result.should == 'Elvis has left the building and has left the world!'
     end
   end
+  
+  it 'should render a simple set of text matches' do
+    @template.add_text_expressions 'foo', '{bar}' => :bar
+    @template.parse! 'When a foo becomes a {bar}...'
+    result = @template.render 'foo' => 'caterpillar', :bar => 'butterfly'
+    result.should == 'When a caterpillar becomes a butterfly...'
+  end
 end
