@@ -24,6 +24,11 @@ describe 'A text template' do
         result = @template.render :foo => 'plant', :bar => 'rhinocerous'
         result.should == 'A plant is not a rhinocerous.'
       end
+      
+      it 'Should discard any fields not found' do
+        result = @template.render :foo => 'frog', :bar => 'spider', :something_else => 'should not render'
+        result.should == 'A frog is not a spider.'
+      end
     end
   end
 end
