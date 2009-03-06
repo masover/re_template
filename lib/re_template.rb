@@ -4,7 +4,7 @@ class ReTemplate
   class ReTemplate::Text < ReTemplate
     def parse! string
       self.nodes = [string]
-      expressions.each do |expression|
+      expressions.each_key do |expression|
         self.nodes = self.nodes.map do |node|
           if node.kind_of? String
             result = []
