@@ -18,7 +18,7 @@ class ReTemplate::Html < ReTemplate
     nodes.each do |node|
       node.render! values
     end
-    doc.dup
+    doc.to_s
   end
   
   class SubTemplate < Text
@@ -26,7 +26,7 @@ class ReTemplate::Html < ReTemplate
     def initialize node, expressions
       self.node = node
       self.expressions = expressions
-      self.parse! node
+      self.parse! node.to_s
     end
     
     def render! values
