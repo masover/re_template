@@ -1,6 +1,12 @@
-require 'cgi'
+require 'rubygems'
+autoload :CGI, 'cgi'
+require 'autoloader'
+require 'pathname'
+AutoLoader << Pathname(__FILE__).dirname
 
 class ReTemplate
+  include AutoLoader
+
   attr_accessor :nodes
   attr_writer :expressions
   def expressions
@@ -14,52 +20,6 @@ class ReTemplate
     end
     hash.each_pair do |key, value|
       self.expressions[/#{Regexp.escape key}/] = value
-    end
-  end
-  
-  class Text < ReTemplate
-    def parse! string
-      self.nodes = [string]
-      expressions.each_key do |expression|
-        self.nodes = self.nodes.map do |node|
-          if node.kind_of? String
-            result = []
-            rest = node
-            while match = expression.match(rest)
-              result << match.pre_match
-              result << expression
-              rest = match.post_match
-            end
-            result << rest
-            result.reject{|x| x == ''}
-          else
-            # It's not a string, so leave it alone
-            node
-          end
-        end.flatten
-      end
-    end
-    
-    def render values
-      result = ''
-      nodes.each do |node|
-        if node.kind_of? String
-          result << node
-        else
-          result << values[expressions[node]]
-        end
-      end
-      result
-    end
-  end
-  
-  class Html < Text
-    def render values
-      our_values = values.dup
-      values.each_pair do |k,v|
-        our_values[k] = CGI.escapeHTML v
-      end
-      super our_values
     end
   end
 end
