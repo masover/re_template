@@ -30,7 +30,9 @@ class ReTemplate::Html < ReTemplate
     end
     
     def render! values
-      self.node = node.replace(Nokogiri::XML::Text.new(render(values), node.document))
+      new_node = Nokogiri::XML::Text.new(render(values), node.document)
+      node.replace(new_node)
+      self.node = new_node
     end
   end
   

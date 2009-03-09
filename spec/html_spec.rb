@@ -3,8 +3,11 @@ module HtmlSpec
     def docify string
       Nokogiri::HTML.parse(string.to_s).to_s
     end
-    def assumptions other
-      docify(other).should == docify(object)
+    def matches? other
+      docify(other) == docify(object)
+    end
+    def failure_message
+      "#{docify(object).inspect} tested"
     end
   end
   def be_doc doc
@@ -46,6 +49,14 @@ describe 'An HTML template' do
       it 'should discard any fields not found' do
         result = @template.render :foo => 'frog', :bar => 'spider', :something_else => 'should not render'
         result.should be_doc('<p>A frog is not a spider.</p>')
+      end
+      
+      it 'should render twice with different values' do
+        result = @template.render :foo => 'buffalo', :bar => 'giraffe'
+        result.should be_doc('<p>A buffalo is not a giraffe.</p>')
+        result = @template.render :foo => 'hippo', :bar => 'walrus'
+        result.should be_doc('<p>A hippo is not a walrus.</p>')
+        result.should.not be_doc('<p>A buffalo is not a giraffe.</p>')
       end
       
       it 'should replace text verbatim, without further replacing it' do
