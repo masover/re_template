@@ -1,5 +1,4 @@
 require 'rubygems'
-autoload :CGI, 'cgi'
 require 'autoloader'
 require 'pathname'
 AutoLoader << Pathname(__FILE__).dirname
