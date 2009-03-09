@@ -61,4 +61,18 @@ describe 'An HTML template' do
     result = @template.render :foo => '<example>'
     result.should == '<p>&lt;example&gt;</p>'
   end
+  
+  it 'should match escaped text in template' do
+    @template.add_text_expressions '<foo>' => :foo
+    @template.parse! '<p>&lt;foo&gt;</p>'
+    result = @template.render :foo => 'bar'
+    result.should == '<p>bar</p>'
+  end
+  
+  it "shouldn't match tags" do
+    @template.add_text_expressions '<foo>' => :foo
+    @template.parse! '<p><foo></foo></p>'
+    result = @template.render :foo => 'bar'
+    result.should == '<p><foo></foo></p>'
+  end
 end
