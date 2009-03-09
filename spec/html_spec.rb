@@ -54,4 +54,11 @@ describe 'An HTML template' do
     result = @template.render :foo => 'bar'
     result.should == '{fo<i>o}</i>'
   end
+  
+  it 'should escape substituted values' do
+    @template.add_text_expressions '{foo}' => :foo
+    @template.parse! '<p>{foo}</p>'
+    result = @template.render :foo => '<example>'
+    result.should == '<p>&lt;example&gt;</p>'
+  end
 end
