@@ -26,7 +26,7 @@ class ReTemplate::Html < ReTemplate
     def initialize node, expressions
       self.node = node
       self.expressions = expressions
-      self.parse! node.to_s
+      self.parse! node.text
     end
     
     def render! values
