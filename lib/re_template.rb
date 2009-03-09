@@ -1,3 +1,5 @@
+require 'cgi'
+
 class ReTemplate
   attr_accessor :nodes
   attr_writer :expressions
@@ -51,5 +53,13 @@ class ReTemplate
     end
   end
   
-  Html = Text
+  class Html < Text
+    def render values
+      our_values = values.dup
+      values.each_pair do |k,v|
+        our_values[k] = CGI.escapeHTML v
+      end
+      super our_values
+    end
+  end
 end
