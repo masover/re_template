@@ -15,7 +15,7 @@ class ReTemplate
     end
   end
   
-  class ReTemplate::Text < ReTemplate
+  class Text < ReTemplate
     def parse! string
       self.nodes = [string]
       expressions.each_key do |expression|
@@ -50,4 +50,6 @@ class ReTemplate
       result
     end
   end
+  
+  Html = Text
 end
