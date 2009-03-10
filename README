@@ -1,0 +1,64 @@
+A very simple template engine based on Regular Expressions
+
+
+Features
+========
+
+ * Regular expressions or plain text
+ * Can be used for HTML->HTML (read on)
+ * Tested on Ruby 1.8.7 and 1.9.1
+
+
+
+Usage
+=====
+
+  template = ReTemplate::Text.new
+  template.expressions = {/\{foo\}/ => :foo, /\{bar\}/ => :bar}
+  template.parse! 'A {foo} is not a {bar}.'
+  template.render :foo => 'plant', :bar => 'rhinocerous', :other_expression => 'ignored'
+   => 'A plant is not a rhinocerous.'
+
+Expressions must be set before parsing.
+Multiple calls to parse! can be done with the same expressions (this may change).
+Multiple calls to 'render' will work by design.
+It also works with HTML:
+
+  template = ReTemplate::Html.new
+  template.add_text_expressions '<foo>' => :foo, '|lang|' => :lang
+  template.parse! '<p>&lt;foo&gt; is not a valid |lang| tag.</p>'
+  template.render :foo => '<bar>', :lang => 'HTML'
+   => '<p>&lt;bar&gt; is not a valid HTML tag.</p>'
+
+Actually, I lied, as this will currently attach a doctype, and wrap things in html and body tags, if any of these things are missing. I blame Nokogiri.
+
+Read the specs for more.
+
+
+
+Motivation/Examples
+===================
+
+Mail merge. A user can prepare an email like this, in their mail client:
+
+Dear {customer_name},
+    Lorem ipsum dolor sit amet...
+
+The curly brackets are merely a convention, because {user} is unlikely to be intended in the body of a message. The important point is that this can also be applied to an HTML message, even if the pattern or replacement text is not valid HTML. For example:
+
+Dear <customer_name>,
+
+A simple text replacement would only see &lt;user&gt;. While we're at it, the replacement text is automatically escaped.
+
+I also looked at Liquid. It is very cool, but it was overkill for this project, and it didn't look like it would behave well with WYSIWYG-generated HTML.
+
+
+
+CAVEATS
+=======
+
+This is brand spanking this-afternoon new. The API is pretty much guaranteed to change. If you're using this for anything important, either fork it or lock to a specific version.
+
+The expressions hash is unordered. If you have a chunk of text that could match two different regular expressions, one of them is going to be applied first, and it's undefined which one. If this matters to you, you're probably using the wrong tool -- personally, I won't be using the regexes directly at all, they just seem to be faster (for some bizarre reason) than string#split.
+
+Someone MUST have done a better job of this somewhere. If you find it, let me know!
