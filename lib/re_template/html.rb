@@ -18,7 +18,7 @@ class ReTemplate::Html < ReTemplate
     nodes.each do |node|
       node.render! values
     end
-    doc.to_s
+    doc.dup
   end
   
   class SubTemplate < Text
