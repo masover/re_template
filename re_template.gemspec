@@ -5,8 +5,8 @@ DEP = ['masover-autoloader', ['~> 0.0.1']]
 
 Gem::Specification.new do |s|
   s.name = 're_template'
-  s.version = '0.0.1'
-  s.date = '2009-03-10'
+  s.version = '0.0.1.1'
+  s.date = '2009-03-15'
   s.summary = 'Simple, Regular Expression powered template engine. Intelligently handles HTML input.'
   s.email = 'dave@3mix.com'
   s.has_rdoc = false
