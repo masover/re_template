@@ -10,7 +10,8 @@ Gem::Specification.new do |s|
   s.name = 're_template'
   s.version = '0.0.1.2'
   s.date = '2009-03-15'
-  s.summary = 'Simple, Regular Expression powered template engine. Intelligently handles HTML input.'
+  s.summary = 'Simple, Regular Expression powered template engine.'
+  s.description = 'Intelligently handles HTML input, and is meant to safely handle untrusted templates and substitution variables. Basically, it\'s designed for mail merge.'
   s.email = 'ninja@slaphack.com'
   s.homepage = 'http://github.com/masover/re_template'
   s.has_rdoc = false
