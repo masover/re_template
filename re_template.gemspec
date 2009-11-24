@@ -11,7 +11,8 @@ Gem::Specification.new do |s|
   s.version = '0.0.1.2'
   s.date = '2009-03-15'
   s.summary = 'Simple, Regular Expression powered template engine. Intelligently handles HTML input.'
-  s.email = 'dave@3mix.com'
+  s.email = 'ninja@slaphack.com'
+  s.homepage = 'http://github.com/masover/re_template'
   s.has_rdoc = false
   s.authors = ['David Masover']
   s.files = ['README', 'lib/re_template.rb', 'lib/re_template/text.rb', 'lib/re_template/html.rb']
