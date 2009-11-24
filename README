@@ -44,11 +44,11 @@ Mail merge. A user can prepare an email like this, in their mail client:
 Dear {customer_name},
     Lorem ipsum dolor sit amet...
 
-The curly brackets are merely a convention, because {user} is unlikely to be intended in the body of a message. The important point is that this can also be applied to an HTML message, even if the pattern or replacement text is not valid HTML. For example:
+The curly brackets are merely a convention, because {customer_name} is unlikely to be intended in the body of a message. The important point is that this can also be applied to an HTML message, even if the pattern or replacement text is not valid HTML. For example:
 
 Dear <customer_name>,
 
-A simple text replacement would only see &lt;user&gt;. While we're at it, the replacement text is automatically escaped.
+A simple text replacement would only see &lt;customer_name&gt;. While we're at it, the replacement text is automatically escaped.
 
 I also looked at Liquid. It is very cool, but it was overkill for this project, and it didn't look like it would behave well with WYSIWYG-generated HTML.
 
